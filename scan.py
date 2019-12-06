@@ -10,7 +10,7 @@ def get_filename():
 
 
 
-#  get file creation date
+# get file creation date
 def get_file_creation_date(filename):
     c = os.path.getctime(filename)
     print(dt.datetime.fromtimestamp(c))

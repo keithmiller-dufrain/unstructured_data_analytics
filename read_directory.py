@@ -4,7 +4,7 @@ from pathlib import Path
 import os
 
 
-# print directory tree
+# print directory tree - WORKS
 def tree(directory):
     print(f'+ {directory}')
     for path in sorted(directory.rglob('*')):
@@ -12,13 +12,7 @@ def tree(directory):
         spacer = '    ' * depth
         print(f'{spacer}+ {path.name}')
 
-
-def list_directory(path):
-    p = Path(path)
-    print(p)
-    list(p.glob('*.py'))
-
-
 if __name__ == '__main__':
-    tree()
-    list_directory('.')
+    tree(Path.cwd())
+
+
