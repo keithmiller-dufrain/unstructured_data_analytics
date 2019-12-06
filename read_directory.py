@@ -1,0 +1,1 @@
+# script to inspect a given directory
