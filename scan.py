@@ -7,14 +7,19 @@ import read_directory
 import gather_data
 
 
+# empty list for file locations to scan
+file_paths = []
+
 # get filename and store it in a variable, do this in other script and read in results?
 def get_file_path(directory):
-    read_directory.list_directory(directory)
-    for file in directory:
-        # for each file in the directory, return the full path for passing into information gathering functions
-
-        print(file_path)
-        return file_path
+    directory_len = read_directory.list_directory(directory)
+    length = len(directory_len)
+    for file in length(directory):
+        # for each file in the directory, return the full path for passing into information gathering functions. store in character string 
+        file_path = os.path.abspath(file)
+        file_paths.insert(file_path)
+        #print(file_path)
+        #return file_path
         #file_path = ‎⁨'~/Macintosh HD⁩/Users⁩/fraserblack⁩/Desktop⁩/Dufrain⁩/Insight into Unstructured Data.docx'
     
 
