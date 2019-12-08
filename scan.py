@@ -3,12 +3,20 @@ import os
 from os import stat
 import datetime as dt
 from pwd import getpwuid
+import read_directory
+import gather_data
 
 
 # get filename and store it in a variable, do this in other script and read in results?
-def get_file_path():
-    file_path = ‎⁨'~/Macintosh HD⁩/Users⁩/fraserblack⁩/Desktop⁩/Dufrain⁩/Insight into Unstructured Data.docx'
-    return file_path
+def get_file_path(directory):
+    read_directory.list_directory(directory)
+    for file in directory:
+        # for each file in the directory, return the full path for passing into information gathering functions
+
+        print(file_path)
+        return file_path
+        #file_path = ‎⁨'~/Macintosh HD⁩/Users⁩/fraserblack⁩/Desktop⁩/Dufrain⁩/Insight into Unstructured Data.docx'
+    
 
 # get file creation date
 def get_file_creation_date(file_path):
@@ -45,8 +53,11 @@ def get_file_owner(file_path):
     return o
 
 
+
+
 if __name__ == '__main__':
-    get_file_path()
+    read_directory.list_directory(Path.cwd())
+    get_file_path(directory)
     get_file_creation_date(file_path)
     get_modification_date(file_path)
     get_last_accessed_date(file_path)

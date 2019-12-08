@@ -5,7 +5,7 @@ import os
 
 
 # print directory tree - WORKS
-def tree(directory):
+def list_directory(directory):
     print(f'+ {directory}')
     for path in sorted(directory.rglob('*')):
         depth = len(path.relative_to(directory).parts)
@@ -13,6 +13,6 @@ def tree(directory):
         print(f'{spacer}+ {path.name}')
 
 if __name__ == '__main__':
-    tree(Path.cwd())
+    list_directory(Path.cwd())
 
 
