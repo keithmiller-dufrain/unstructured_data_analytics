@@ -1,10 +1,11 @@
 import unittest
+from pathlib import Path
 from scan import get_file_creation_date
 from scan import get_last_accessed_date
 from scan import get_modification_date
 from scan import get_file_owner
 from scan import get_file_size
-#from scan import get_file_path
+from scan import get_file_path
 
 class testScanFunctions(unittest.TestCase):
     def test_owner(self):
@@ -32,6 +33,9 @@ class testScanFunctions(unittest.TestCase):
         self.assertEquals(get_file_size('./requirements.txt'), 0)
         # PASSING
 
+    def test_get_file_path(self):
+        # test if i can return a single file path
+        self.assertEquals(get_file_path(Path.cwd()), 1)
 
 
 if __name__ == '__main__':

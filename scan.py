@@ -45,15 +45,15 @@ def get_file_owner(file_path):
     return o
 
 
+file_paths = []
 # get filename and store it in a variable, do this in other script and read in results?
 def get_file_path(directory):
-    file_paths = []
     directory_len = read_directory.list_directory(directory)
-    length = len(directory_len)
-    for file in length(directory):
+    #length = len(directory_len)
+    for file in sorted(directory.rglob('*')):
         # for each file in the directory, return the full path for passing into information gathering functions. store in character string 
         file_path = os.path.abspath(file)
-        file_paths.insert(file_path)
+        file_paths.append(file_path)
     
 
 def gather_file_info(file_paths):
@@ -68,7 +68,7 @@ def gather_file_info(file_paths):
 
 if __name__ == '__main__':
     get_file_path(directory)
-    gather_file_info(directory)
+    gather_file_info(file_paths)
     
 
 
