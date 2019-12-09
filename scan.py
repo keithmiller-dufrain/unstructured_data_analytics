@@ -59,7 +59,7 @@ def get_file_path(directory):
 
 def gather_file_info(file_paths):
         print(file_paths)
-        for file in file_paths:
+        for file in range(len(file_paths)):
                 get_file_owner(file)
                 get_file_size(file)
                 get_file_creation_date(file)
