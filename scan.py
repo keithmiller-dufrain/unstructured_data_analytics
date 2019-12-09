@@ -7,27 +7,27 @@ from pwd import getpwuid
 import read_directory
 import gather_data
 import time
+from pathlib import Path
 
 
 # get file creation date
 def get_file_creation_date(file_path):
     c = time.strftime('%d/%m/%Y', time.gmtime(os.path.getmtime(file_path)))
-    print(c)
+    print('Creation Date '+ c)
     return c
 
 
 # get file modification date
 def get_modification_date(file_path):
-    #m = os.path.getmtime(file_path)
     m = time.strftime('%d/%m/%Y', time.gmtime(os.path.getmtime(file_path)))
-    print(m)
+    print('Modification Date '+ m)
     return m
 
 
 # get last accessed
 def get_last_accessed_date(file_path):
     a = time.strftime('%d/%m/%Y', time.gmtime(os.path.getatime(file_path)))
-    print(a)
+    print('Accessed Date '+ a)
     return a
 
 
@@ -54,21 +54,25 @@ def get_file_path(directory):
         # for each file in the directory, return the full path for passing into information gathering functions. store in character string 
         file_path = os.path.abspath(file)
         file_paths.append(file_path)
+
     
 
 def gather_file_info(file_paths):
-    for file in file_paths:
-        get_file_owner(file)
-        get_file_size(file)
-        get_file_creation_date(file)
-        get_modification_date(file)
-        get_last_accessed_date(file)
+        print(file_paths)
+        for file in file_paths:
+                get_file_owner(file)
+                get_file_size(file)
+                get_file_creation_date(file)
+                get_modification_date(file)
+                get_last_accessed_date(file)
+
+                #print(file_paths)
 
 
 
 if __name__ == '__main__':
-    get_file_path(directory)
-    gather_file_info(file_paths)
+    get_file_path(Path.cwd())
+    gather_file_info('./scan.py')
     
 
 
