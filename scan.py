@@ -92,9 +92,9 @@ def create_dictionary(filename,owner,size,modification,creation,accessed):
 def create_sql_statement(mydict):
         for dict in mydict:
                 placeholders = ', '.join(['%s'] * len(dict))
-                columns = ', '.join("`" + str(x).replace('/', '_') + "`" for x in mydict.keys())
+                columns = ', '.join("" + str(x).replace('/', '_') + "" for x in mydict.keys())
                 values = ', '.join("'" + str(x).replace('/', '_') + "'" for x in mydict.values())
-                sql = "INSERT INTO %s ( %s ) VALUES ( %s );" % ('test_table', columns, values)
+                sql = "INSERT INTO %s  (%s)  VALUES  (%s) ;" % ('test_table', columns, values)
 
 
                 print(sql)
@@ -106,24 +106,3 @@ def create_sql_statement(mydict):
 if __name__ == '__main__':
     get_file_path(Path.cwd())
     gather_file_info(file_paths)
-
-    
-
-
-
-#def get_tree_size(directory):
-#        total = 0
-#        for file in os.scandir(directory):
-#                 try:
-#                        is_dir = entry.is_dir(follow_symlinks = FALSE)
-#                except OSError as error:
-#                        print('Error calling is_dir():', error, file = sys.stderr)
-#                        continue
-#                if is_dir:
-#                        total += get_tree_size(entry.directory)
-#                else:
-#                        try:
-#                                total += entry.stat(follow_symlinks = FALSE).st_size
-#                        except OSError as error:
-#                                print('Error calling stat():', error, file = sys.stderr)
-#        return total
