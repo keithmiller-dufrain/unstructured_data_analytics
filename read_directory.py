@@ -1,5 +1,4 @@
 #!/usr/bin/env python3
-
 import os
 from pathlib import Path
 
@@ -11,8 +10,6 @@ def list_directory(directory):
         depth = len(path.relative_to(directory).parts)
         spacer = '    ' * depth
         print(f'{spacer}+ {path.name}')
-
-# def function to return full path off all files in the directory, full path will be used for scanning 
 
 if __name__ == '__main__':
     list_directory(Path.cwd())
