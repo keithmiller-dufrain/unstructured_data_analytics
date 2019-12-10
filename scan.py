@@ -1,12 +1,12 @@
 #!/usr/bin/env python3
 # import libraries
 import os
-from os import stat
-import datetime as dt
-from pwd import getpwuid
+import time
 import read_directory
 import gather_data
-import time
+import datetime as dt
+from os import stat
+from pwd import getpwuid
 from pathlib import Path
 
 
@@ -56,7 +56,7 @@ file_paths = []
 def get_file_path(directory):
         directory_len = read_directory.list_directory(directory)
         #length = len(directory_len)
-        for file in sorted(directory.rglob('*')):
+        for file in sorted(directory.rglob('**/*.py')):
                 # for each file in the directory, return the full path for passing into information gathering functions. store in character string 
                 file_path = os.path.abspath(file)
                 file_paths.append(file_path)
@@ -67,13 +67,7 @@ def get_file_path(directory):
 
 def gather_file_info(file_paths):
         #print(file_paths)
-        for file in range(0,len(file_paths)):
-                get_filename(str(file))
-                get_file_owner(file)
-                get_file_size(file)
-                get_file_creation_date(file)
-                get_modification_date(file)
-                get_last_accessed_date(file)
+        for file in range(len(file_paths)):
                 fil = get_filename(str(file))
                 own = get_file_owner(file)
                 siz = get_file_size(file)
@@ -84,7 +78,8 @@ def gather_file_info(file_paths):
                 #create_sql_statement(mydict)
                 break
 
-        #print(file_paths)
+        print(file_paths[1])
+        print("\n".join(file_paths))
 
 
 def create_dictionary(filename,owner,size,modification,creation,accessed):
