@@ -4,7 +4,6 @@ import os
 import time
 import ast
 import read_directory
-import gather_data
 import datetime as dt
 from os import stat
 from pwd import getpwuid
@@ -57,26 +56,29 @@ file_paths = []
 def get_file_path(directory):
         directory_len = read_directory.list_directory(directory)
         #length = len(directory_len)
-        for file in sorted(directory.rglob('**/*.py')):
+        for file in sorted(directory.rglob('**/*py')):
                 # for each file in the directory, return the full path for passing into information gathering functions. store in character string 
                 file_path = os.path.abspath(file)
                 file_paths.append(file_path)
         print("\n".join(file_paths))
+        print(file_paths)
         return file_paths
        
     
 
 def gather_file_info(file_paths):
         #print(file_paths)
+        n = range(len(file_paths))
+        print(n)
         for file in range(len(file_paths)):
-                fil = get_filename(str(file))
-                own = get_file_owner(file)
-                siz = get_file_size(file)
-                cre = get_file_creation_date(file)
-                mod = get_modification_date(file)
-                acc = get_last_accessed_date(file)
+                fil = get_filename(str(file_paths[file]))
+                own = get_file_owner(file_paths[file])
+                siz = get_file_size(file_paths[file])
+                cre = get_file_creation_date(file_paths[file])
+                mod = get_modification_date(file_paths[file])
+                acc = get_last_accessed_date(file_paths[file])
                 create_dictionary(fil, own, siz, cre, mod, acc)
-                break
+                
 
         #print("\n".join(file_paths))
 
