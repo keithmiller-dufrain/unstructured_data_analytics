@@ -2,6 +2,7 @@
 # import libraries
 import os
 import time
+import ast
 import read_directory
 import gather_data
 import datetime as dt
@@ -12,7 +13,7 @@ from pathlib import Path
 
 # get file creation date
 def get_file_creation_date(file_path):
-        c = time.strftime('%d/%m/%Y', time.gmtime(os.path.getmtime(file_path)))
+        c = time.strftime('%d/%m/%Y', time.gmtime(os.path.getctime(file_path)))
         print('Creation Date '+ c)
         return c
 
@@ -47,7 +48,7 @@ def get_file_owner(file_path):
 
 def get_filename(file_path):
         f = os.path.basename(file_path)
-        print('filename '+ f)
+        print('Filename '+ f)
         return f
 
 
@@ -75,32 +76,31 @@ def gather_file_info(file_paths):
                 mod = get_modification_date(file)
                 acc = get_last_accessed_date(file)
                 create_dictionary(fil, own, siz, cre, mod, acc)
-                #create_sql_statement(mydict)
                 break
 
-        print(file_paths[1])
-        print("\n".join(file_paths))
+        #print("\n".join(file_paths))
 
 
 def create_dictionary(filename,owner,size,modification,creation,accessed):
         keys = ["filename","owner", "size", "creation_date", "modification_date", "accessed_date"]
         values = [filename, owner, size, modification, creation, accessed]
-        mydict = list(zip(keys, values))
-        print(mydict)
-        return mydict
+        mydict = dict(zip(keys, values))
+        print(mydict.keys())
+        create_sql_statement(mydict)
 
 
 def create_sql_statement(mydict):
         for dict in mydict:
                 placeholders = ', '.join(['%s'] * len(dict))
-                columns = ', '.join("`" + str(x).replace('/', '_') + "`" for x in dict.keys())
-                values = ', '.join("'" + str(x).replace('/', '_') + "'" for x in dict.values())
+                columns = ', '.join("`" + str(x).replace('/', '_') + "`" for x in mydict.keys())
+                values = ', '.join("'" + str(x).replace('/', '_') + "'" for x in mydict.values())
                 sql = "INSERT INTO %s ( %s ) VALUES ( %s );" % ('test_table', columns, values)
 
 
                 print(sql)
-                #f = open("./test.sql", "a")
-                #f.write(sql + '\n')
+                f = open("./test.sql", "a")
+                f.write(sql + '\n')
+                return sql
 
 
 if __name__ == '__main__':
