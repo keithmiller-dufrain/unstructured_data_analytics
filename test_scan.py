@@ -21,7 +21,7 @@ class testScanFunctions(unittest.TestCase):
 
     def test_creation_date(self):
         #check if the function returns the creation date of the file     
-        self.assertEqual(get_file_creation_date('./requirements.txt'), '06/12/2019')
+        self.assertEqual(get_file_creation_date('./requirements.txt'), '09/12/2019')
         # PASSING
 
     def test_accessed_date(self):
