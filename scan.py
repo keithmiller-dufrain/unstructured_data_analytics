@@ -41,13 +41,13 @@ def get_file_size(file_path):
 # get file owner/creator
 def get_file_owner(file_path):
         o = getpwuid(stat(file_path).st_uid).pw_name
-        print(o)
+        print('Owner '+ o)
         return o
 
 
 def get_filename(file_path):
         f = os.path.basename(file_path)
-        print(f)
+        print('filename '+ f)
         return f
 
 
@@ -61,33 +61,35 @@ def get_file_path(directory):
                 file_path = os.path.abspath(file)
                 file_paths.append(file_path)
         print("\n".join(file_paths))
+        return file_paths
        
     
 
 def gather_file_info(file_paths):
         #print(file_paths)
-        for file in range(len(file_paths)):
-                #get_filename(file)
+        for file in range(0,len(file_paths)):
+                get_filename(str(file))
                 get_file_owner(file)
                 get_file_size(file)
                 get_file_creation_date(file)
                 get_modification_date(file)
                 get_last_accessed_date(file)
+                fil = get_filename(str(file))
                 own = get_file_owner(file)
                 siz = get_file_size(file)
                 cre = get_file_creation_date(file)
                 mod = get_modification_date(file)
                 acc = get_last_accessed_date(file)
-                create_dictionary(own, siz, cre, mod, acc)
-                create_sql_statement(mydict)
+                create_dictionary(fil, own, siz, cre, mod, acc)
+                #create_sql_statement(mydict)
                 break
 
         #print(file_paths)
 
 
-def create_dictionary(owner,size,modification,creation,accessed):
-        keys = ["owner", "size", "creation_date", "modification_date", "accessed_date"]
-        values = [owner, size, modification, creation, accessed]
+def create_dictionary(filename,owner,size,modification,creation,accessed):
+        keys = ["filename","owner", "size", "creation_date", "modification_date", "accessed_date"]
+        values = [filename, owner, size, modification, creation, accessed]
         mydict = list(zip(keys, values))
         print(mydict)
         return mydict
@@ -108,7 +110,7 @@ def create_sql_statement(mydict):
 
 if __name__ == '__main__':
     get_file_path(Path.cwd())
-    gather_file_info('./requirements.txt')
+    gather_file_info(file_paths)
 
     
 
