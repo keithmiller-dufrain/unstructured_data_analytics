@@ -45,14 +45,23 @@ def get_file_owner(file_path):
         return o
 
 
+# get the name of the file 
 def get_filename(file_path):
         f = os.path.basename(file_path)
         print('Filename '+ f)
         return f
 
 
+# get the file extension
+def get_file_extension(file_path):
+        e = os.path.basename(file_path)
+        e = e.split('.')[-1]
+        print(e)
+        return e
+
+
+# print out the directory, and then get the absolute path for every item in the directory if it meets the extension requirements 
 file_paths = []
-# get filename and store it in a variable, do this in other script and read in results?
 def get_file_path(directory):
         directory_len = read_directory.list_directory(directory)
         #length = len(directory_len)
@@ -65,7 +74,7 @@ def get_file_path(directory):
         return file_paths
        
     
-
+# pull together the file information using the get functions and then call the dictionary creation
 def gather_file_info(file_paths):
         #print(file_paths)
         n = range(len(file_paths))
@@ -77,20 +86,20 @@ def gather_file_info(file_paths):
                 cre = get_file_creation_date(file_paths[file])
                 mod = get_modification_date(file_paths[file])
                 acc = get_last_accessed_date(file_paths[file])
-                create_dictionary(fil, own, siz, cre, mod, acc)
+                ext = get_file_extension(file_paths[file])
+                create_dictionary(fil, own, siz, cre, mod, acc, ext)
                 
 
-        #print("\n".join(file_paths))
 
-
-def create_dictionary(filename,owner,size,modification,creation,accessed):
-        keys = ["filename","owner", "size", "creation_date", "modification_date", "accessed_date"]
-        values = [filename, owner, size, modification, creation, accessed]
+# create a dictionary with key value pairs
+def create_dictionary(filename,owner,size,modification,creation,accessed,extension):
+        keys = ["filename","owner", "size", "creation_date", "modification_date", "accessed_date", "extension"]
+        values = [filename, owner, size, creation, modification, accessed, extension]
         mydict = dict(zip(keys, values))
-        #print(mydict.keys())
         create_sql_statement(mydict)
 
 
+# auto generate the SQL statement which will be used inserting the record into the DB
 def create_sql_statement(mydict):
         for dict in mydict:
                 placeholders = ', '.join(['%s'] * len(dict))
